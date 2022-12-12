@@ -9,6 +9,7 @@
     "peggy": "^2.0.1"
   },
   "files": [
+    "blte.js",
     "config.js",
     "index.js",
     "pipe.js"
