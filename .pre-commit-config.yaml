@@ -13,9 +13,9 @@ repos:
   - id: jshint
 - repo: local
   hooks:
-  - id: npm test
-    name: npm test
-    entry: npm test
+  - id: npm-test
+    name: npm install and test
+    entry: bash -c "npm install && npm test"
     language: system
     pass_filenames: false
 - repo: meta
