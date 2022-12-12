@@ -1,0 +1,32 @@
+{
+  "author": "Ferronn <ferronn@ferronn.dev>",
+  "description": "Parser for Blizzard TACT files.",
+  "devDependencies": {
+    "peggy": "^2.0.1"
+  },
+  "files": [
+    "config.js",
+    "pipe.js"
+  ],
+  "keywords": [
+    "blizzard",
+    "casc",
+    "config",
+    "pipe",
+    "tact",
+    "wow",
+    "wowdev"
+  ],
+  "license": "MIT",
+  "main": "tactless.js",
+  "name": "tactless",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wowless/node-tactless"
+  },
+  "scripts": {
+    "prepublish": "npx peggy config.pegjs && npx peggy pipe.pegjs",
+    "test": "node test.js"
+  },
+  "version": "0.0.1"
+}
