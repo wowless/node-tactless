@@ -1,11 +1,16 @@
 {
   "author": "Ferronn <ferronn@ferronn.dev>",
+  "dependencies": {
+    "binary-parser": "^2.2.1",
+    "md5": "^2.3.0"
+  },
   "description": "Parser for Blizzard TACT files.",
   "devDependencies": {
     "peggy": "^2.0.1"
   },
   "files": [
     "config.js",
+    "index.js",
     "pipe.js"
   ],
   "keywords": [
