@@ -36,5 +36,5 @@
     "prepublish": "npx peggy config.pegjs && npx peggy pipe.pegjs",
     "test": "node test.js"
   },
-  "version": "0.0.3"
+  "version": "0.0.4"
 }
