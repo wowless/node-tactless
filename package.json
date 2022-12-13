@@ -13,6 +13,7 @@
     "config.js",
     "encoding.js",
     "index.js",
+    "install.js",
     "pipe.js"
   ],
   "keywords": [
