@@ -1,6 +1,4 @@
 const { Parser } = require('binary-parser');
-const assert = require('node:assert');
-const md5 = require('md5');
 
 const parser = new Parser()
   .useContextVars()
