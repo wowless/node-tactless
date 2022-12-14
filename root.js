@@ -1,4 +1,5 @@
 const { Parser } = require('binary-parser');
+const assert = require('node:assert');
 
 const parser = new Parser()
   .uint32le("magic", { assert: 0x4d465354 })
