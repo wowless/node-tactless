@@ -32,17 +32,21 @@ function parseRoot(buf) {
   const name2fdid = new Map();
   const fdid2ckey = new Map();
   for (const block of data.blocks) {
-    if ((block.locale & 0x2) && !(block.locale & 0x100)) { // TODO support multiple locales
-      let fdid = -1;
-      for (let i = 0; i < block.num_records; ++i) {
-        fdid = fdid + 1 + block.fdid_deltas[i];
-        assert(!fdid2ckey.has(fdid));
-        fdid2ckey.set(fdid, block.content_keys[i]);
-        const name = block.name_hashes[i];
-        if (name) {
-          assert(!name2fdid.has(name));
-          name2fdid.set(name, fdid);
-        }
+    let fdid = -1;
+    for (let i = 0; i < block.num_records; ++i) {
+      fdid = fdid + 1 + block.fdid_deltas[i];
+      if (!fdid2ckey.has(fdid)) {
+        fdid2ckey.set(fdid, []);
+      }
+      fdid2ckey.get(fdid).push({
+        ckey: block.content_keys[i],
+        flags: block.flags,
+        locale: block.locale,
+      });
+      const name = block.name_hashes[i];
+      if (name) {
+        assert(!name2fdid.has(name) || name2fdid.get(name) == fdid);
+        name2fdid.set(name, fdid);
       }
     }
   }
