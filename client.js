@@ -33,6 +33,7 @@ function mkcdn(host, path) {
   const region = 'us';
   const product = 'wow';
   const tactbase = `http://${region}.patch.battle.net:1119/${product}/`;
+  console.log('getting latest data from CDN');
   const cdn = await (async () => {
     const content = await fetch(tactbase + 'cdns');
     for (const record of tactless.pipe(content.toString()).data) {
@@ -51,20 +52,25 @@ function mkcdn(host, path) {
     }
     throw "no version record for region";
   })();
+  console.log('loading build');
   const build = tactless
     .config((await cdn('config', buildConfig)).toString())
     .data;
+  console.log('loading encoding');
   const encoding = tactless.encoding(tactless.blte(
     await cdn('data', build.encoding[1]), build.encoding[1]));
+  console.log('loading install');
   const install = tactless.install(tactless.blte(
     await cdn('data', build.install[1]), build.install[1]));
   for (const e of install.entries) {
     if (e.name == 'Wow.exe') {
+      console.log('writing Wow.exe');
       const ekey = encoding.get(e.hash)[0];
       const content = await cdn('data', ekey);
       fs.writeFileSync('Wow.exe', tactless.blte(content, ekey));
     }
   }
+  console.log('loading archive index');
   const index = await (async () => {
     const archives = tactless
       .config((await cdn('config', cdnConfig)).toString())
@@ -77,10 +83,12 @@ function mkcdn(host, path) {
     }
     return index;
   })();
+  console.log('loading root');
   const root = await (async () => {
     const ekey = encoding.get(build.root[0])[0];
     return tactless.root(tactless.blte(await cdn('data', ekey), ekey));
   })();
+  console.log('loading entry for fdid 841788');
   {
     const fdid = 841788;
     const ckey = root.fdid2ckey.get(fdid)[0].ckey;
